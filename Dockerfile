@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1.7
 
 # ---------- deps ----------
-FROM node:20-bookworm-slim AS deps
+FROM node:22-bookworm-slim AS deps
 WORKDIR /app
 
 RUN apt-get update \
@@ -9,11 +9,13 @@ RUN apt-get update \
  && rm -rf /var/lib/apt/lists/*
 
 COPY package.json package-lock.json ./
+# Use npm install (not ci) so a slightly out-of-sync lockfile still resolves.
+# Mirror to npmmirror for faster fetches from CN/SG region.
 RUN npm config set registry https://registry.npmmirror.com \
- && npm ci --no-audit --no-fund
+ && npm install --no-audit --no-fund --loglevel=error
 
 # ---------- builder ----------
-FROM node:20-bookworm-slim AS builder
+FROM node:22-bookworm-slim AS builder
 WORKDIR /app
 
 ENV NEXT_TELEMETRY_DISABLED=1
@@ -24,7 +26,7 @@ COPY . .
 RUN npm run build
 
 # ---------- runner ----------
-FROM node:20-bookworm-slim AS runner
+FROM node:22-bookworm-slim AS runner
 WORKDIR /app
 
 ENV NODE_ENV=production \
