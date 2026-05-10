@@ -1,26 +1,180 @@
 @import "tailwindcss";
 
+@theme {
+  /* 墨色系 — 主文字与背景 */
+  --color-ink-950: #0f0e0d;
+  --color-ink-900: #1a1814;
+  --color-ink-800: #2d2b24;
+  --color-ink-700: #403d32;
+  --color-ink-600: #5c5845;
+  --color-ink-500: #7a7560;
+  --color-ink-400: #9e9880;
+  --color-ink-300: #c4bfa8;
+  --color-ink-200: #ddd9cc;
+  --color-ink-100: #eeebe2;
+  --color-ink-50: #f7f5f0;
+
+  /* 珊瑚色 — 取代朱砂红，更柔和亲切 */
+  --color-coral-700: #8b4a38;
+  --color-coral-600: #a85a46;
+  --color-coral-500: #c47a66;
+  --color-coral-400: #d4937f;
+  --color-coral-300: #e3b09f;
+  --color-coral-200: #f0cfc5;
+  --color-coral-100: #f7ebe7;
+  --color-coral-50: #fdf5f3;
+
+  /* 青绿 — 吉祥/正向 */
+  --color-jade-700: #1a4d3a;
+  --color-jade-600: #1e6448;
+  --color-jade-500: #2e8b57;
+  --color-jade-400: #52b788;
+  --color-jade-300: #80cca8;
+  --color-jade-100: #e8f5ef;
+
+  /* 金色 — 财运/高亮 */
+  --color-gold-600: #8b6914;
+  --color-gold-500: #b8891e;
+  --color-gold-400: #d4a843;
+  --color-gold-300: #e8c97a;
+  --color-gold-100: #faf3dc;
+
+  /* 紫色 — 迹·人生树根节点 */
+  --color-mystic-700: #4a2d6b;
+  --color-mystic-500: #7c4da0;
+  --color-mystic-400: #9d6fc0;
+  --color-mystic-100: #f0e8f7;
+
+  /* 字体 — 系统字体栈，无需网络加载 */
+  --font-serif: "Source Han Serif SC", "Noto Serif SC", "SimSun", "STSong", Georgia, serif;
+  --font-sans: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg-primary: #f7f5f0;
+  --bg-sidebar: #1a1814;
+  --bg-card: #ffffff;
+  --text-primary: #1a1814;
+  --text-secondary: #5c5845;
+  --text-muted: #9e9880;
+  --border-color: #ddd9cc;
+  --accent-coral: #c47a66;
+  --accent-jade: #2e8b57;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
+
+/* ── 水墨纸张背景 ── */
+.bg-paper {
+  background-color: #f7f5f0;
+  background-image:
+    radial-gradient(ellipse at 20% 50%, rgba(196, 122, 102, 0.03) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(46, 139, 87, 0.03) 0%, transparent 50%);
+}
+
+/* ── 侧栏深色背景 ── */
+.bg-sidebar {
+  background-color: #1a1814;
+  background-image:
+    radial-gradient(ellipse at 50% 100%, rgba(124, 77, 160, 0.08) 0%, transparent 60%);
+}
+
+/* ── 标题衬线字体 ── */
+.heading-brush {
+  font-family: var(--font-serif);
+  letter-spacing: 0.1em;
+  color: #1a1814;
+}
+
+/* ── 印章效果 ── */
+.seal {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid var(--accent-coral);
+  color: var(--accent-coral);
+  font-family: var(--font-serif);
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  padding: 2px 6px;
+  border-radius: 2px;
+  opacity: 0.85;
+}
+
+/* ── 卡片 ── */
+.card {
+  background: #ffffff;
+  border: 1px solid #ddd9cc;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(15, 14, 13, 0.05);
+}
+
+/* ── 五行颜色 ── */
+.element-wood   { color: #2e8b57; }
+.element-fire   { color: #c47a66; }
+.element-earth  { color: #b8891e; }
+.element-metal  { color: #5c5845; }
+.element-water  { color: #2563eb; }
+
+.element-bg-wood  { background-color: #e8f5ef; }
+.element-bg-fire  { background-color: #f7ebe7; }
+.element-bg-earth { background-color: #faf3dc; }
+.element-bg-metal { background-color: #f4f4f2; }
+.element-bg-water { background-color: #eff6ff; }
+
+/* ── 分割线 ── */
+.divider-ink {
+  border: none;
+  height: 1px;
+  background: linear-gradient(to right, transparent, #c4bfa8, transparent);
+  margin: 1.5rem 0;
+}
+
+/* ── 滚动条 ── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: #eeebe2; }
+::-webkit-scrollbar-thumb { background: #c4bfa8; border-radius: 3px; }
+
+/* ── 动画 ── */
+@keyframes inkDrop {
+  0%   { opacity: 0; transform: scale(0.8) translateY(8px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+.animate-ink-drop { animation: inkDrop 0.4s ease-out forwards; }
+
+@keyframes rotateSlow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+.rotate-slow { animation: rotateSlow 30s linear infinite; }
+
+@keyframes breathe {
+  0%, 100% { opacity: 0.7; transform: scale(1); }
+  50%       { opacity: 1;   transform: scale(1.02); }
+}
+.animate-breathe { animation: breathe 3s ease-in-out infinite; }
+
+/* ── 侧栏导航项 ── */
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s;
+  color: #9e9880;
+  font-size: 0.875rem;
+}
+.nav-item:hover { background: rgba(255,255,255,0.06); color: #ddd9cc; }
+.nav-item.active { background: rgba(196,122,102,0.15); color: #e3b09f; }
+.nav-item.active .nav-icon { color: #c47a66; }

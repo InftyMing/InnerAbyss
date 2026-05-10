@@ -1,0 +1,62 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model User {
+  id        String   @id @default(cuid())
+  name      String?
+  email     String   @unique
+  password  String
+  birthInfo String?  // JSON string
+  locale    String   @default("zh")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  lifeEvents   LifeEvent[]
+  dreamEntries DreamEntry[]
+  diaryEntries DiaryEntry[]
+}
+
+model LifeEvent {
+  id          String   @id @default(cuid())
+  userId      String
+  title       String
+  description String?
+  date        String   // YYYY-MM format
+  year        Int
+  age         Int?
+  category    String   @default("general") // general|career|relationship|health|education|other
+  nodeType    String   @default("milestone") // milestone|turning|birth|current
+  createdAt   DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model DreamEntry {
+  id           String   @id @default(cuid())
+  userId       String
+  date         String
+  content      String
+  interpretation String?
+  emotion      String?  // positive|neutral|negative
+  createdAt    DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model DiaryEntry {
+  id         String   @id @default(cuid())
+  userId     String
+  date       String
+  prediction String
+  event      String?
+  accuracy   String?  // accurate|partial|inaccurate
+  type       String   @default("daily") // daily|dream|sign
+  createdAt  DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
