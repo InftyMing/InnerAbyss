@@ -47,6 +47,11 @@ prisma/*.db-journal
 deploy.tar.gz
 .deploy/
 
+# local scratch files used by AI assistant tooling
+.commit-msg.tmp
+.diag.sh
+.env.local.deploy
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
